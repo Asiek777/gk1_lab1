@@ -15,16 +15,40 @@ namespace gk1_lab1
         public MainWindow()
         {
             InitializeComponent();
+            DoublePictureBox doublePictureBox = new DoublePictureBox(pictureBoxVisible, pictureBoxPicker);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        class DoublePictureBox
+        {
+            PictureBox visible;
+            PictureBox picker;
+
+            public DoublePictureBox(PictureBox visible, PictureBox picker)
+            {
+                this.visible = visible;
+                this.picker = picker;
+            }
+
+            void Refresh()
+            {
+                visible.Refresh();
+                picker.Refresh();
+            }
         }
     }
 }

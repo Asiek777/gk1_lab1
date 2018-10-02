@@ -30,18 +30,23 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.exampleBut = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.drawingPanel = new System.Windows.Forms.Panel();
+            this.pictureBoxVisible = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPicker = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.drawingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPicker)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.exampleBut, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.drawingPanel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -53,7 +58,7 @@
             // 
             // exampleBut
             // 
-            this.exampleBut.Location = new System.Drawing.Point(837, 3);
+            this.exampleBut.Location = new System.Drawing.Point(817, 3);
             this.exampleBut.Name = "exampleBut";
             this.exampleBut.Size = new System.Drawing.Size(144, 59);
             this.exampleBut.TabIndex = 0;
@@ -61,14 +66,33 @@
             this.exampleBut.UseVisualStyleBackColor = true;
             this.exampleBut.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox1
+            // drawingPanel
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(828, 710);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.drawingPanel.Controls.Add(this.pictureBoxVisible);
+            this.drawingPanel.Controls.Add(this.pictureBoxPicker);
+            this.drawingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawingPanel.Location = new System.Drawing.Point(3, 3);
+            this.drawingPanel.Name = "drawingPanel";
+            this.drawingPanel.Size = new System.Drawing.Size(808, 710);
+            this.drawingPanel.TabIndex = 2;
+            // 
+            // pictureBoxVisible
+            // 
+            this.pictureBoxVisible.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxVisible.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxVisible.Name = "pictureBoxVisible";
+            this.pictureBoxVisible.Size = new System.Drawing.Size(808, 710);
+            this.pictureBoxVisible.TabIndex = 2;
+            this.pictureBoxVisible.TabStop = false;
+            // 
+            // pictureBoxPicker
+            // 
+            this.pictureBoxPicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxPicker.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPicker.Name = "pictureBoxPicker";
+            this.pictureBoxPicker.Size = new System.Drawing.Size(808, 710);
+            this.pictureBoxPicker.TabIndex = 3;
+            this.pictureBoxPicker.TabStop = false;
             // 
             // MainWindow
             // 
@@ -80,7 +104,9 @@
             this.Name = "MainWindow";
             this.Text = "MainWindow";
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.drawingPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPicker)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -89,7 +115,9 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button exampleBut;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel drawingPanel;
+        private System.Windows.Forms.PictureBox pictureBoxVisible;
+        private System.Windows.Forms.PictureBox pictureBoxPicker;
     }
 }
 

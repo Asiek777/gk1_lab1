@@ -7,7 +7,10 @@ using gk1_lab1;
 
 namespace gk1_lab1
 {
-    internal class Edge
+    class Edge
     {
+        Vertice v1, v2;
+        internal Vertice V1 { get => v1; set => v1 = value; }
+        internal Vertice V2 { get => v2; set => v2 = value; }
     }
 }

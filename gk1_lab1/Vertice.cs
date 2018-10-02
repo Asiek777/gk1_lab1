@@ -10,8 +10,10 @@ namespace gk1_lab1
     class Vertice
     {
         float x, y;
+        Edge before, after;
         public float X { get => x; set => x = value; }
         public float Y { get => y; set => y = value; }
-        Edge before, after;
+        internal Edge Before { get => before; set => before = value; }
+        internal Edge After { get => after; set => after = value; }  
     }
 }
