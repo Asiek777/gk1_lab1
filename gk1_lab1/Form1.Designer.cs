@@ -41,6 +41,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
@@ -78,12 +79,15 @@
             // 
             // pictureBoxVisible
             // 
+            this.pictureBoxVisible.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBoxVisible.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxVisible.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxVisible.Name = "pictureBoxVisible";
             this.pictureBoxVisible.Size = new System.Drawing.Size(808, 710);
             this.pictureBoxVisible.TabIndex = 2;
             this.pictureBoxVisible.TabStop = false;
+            this.pictureBoxVisible.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxVisible_Paint);
+            this.pictureBoxVisible.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxVisible_MouseDown);
             // 
             // pictureBoxPicker
             // 

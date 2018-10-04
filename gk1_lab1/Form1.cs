@@ -12,6 +12,8 @@ namespace gk1_lab1
 {
     public partial class MainWindow : Form
     {
+        List<Vertice> vertices = new List<Vertice>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,9 +30,14 @@ namespace gk1_lab1
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void pictureBox_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        void addVertice(int x, int y)
+        {
+            vertices.Add(new Vertice(x, y, colorGiver.GiveColor()));
         }
 
         class DoublePictureBox
@@ -49,6 +56,21 @@ namespace gk1_lab1
                 visible.Refresh();
                 picker.Refresh();
             }
+        }
+
+        private void pictureBoxVisible_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (Vertice v in vertices)
+            {
+                Rectangle circle = new Rectangle((int)v.X - 5, (int)v.Y - 5, 2 * 5, 2 * 5);
+                e.Graphics.FillEllipse(Brushes.White, circle);
+                e.Graphics.DrawEllipse(new Pen(v.Color, 3), circle);
+            }
+        }
+
+        private void pictureBoxVisible_MouseDown(object sender, MouseEventArgs e)
+        {
+            addVertice(e.X, e.Y);
         }
     }
 }
