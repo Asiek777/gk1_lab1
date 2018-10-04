@@ -12,49 +12,28 @@ namespace gk1_lab1
 {
     public partial class MainWindow : Form
     {
+        const int pointSize = 5;
         List<Vertice> vertices = new List<Vertice>();
+        DoublePictureBox doublePictureBox;
+        Color chosenColor;
 
         public MainWindow()
         {
             InitializeComponent();
-            DoublePictureBox doublePictureBox = new DoublePictureBox(pictureBoxVisible, pictureBoxPicker);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox_Click(object sender, EventArgs e)
-        {
-            
+            doublePictureBox = new DoublePictureBox(pictureBoxVisible, pictureBoxPicker);
         }
 
         void addVertice(int x, int y)
         {
-            vertices.Add(new Vertice(x, y, colorGiver.GiveColor()));
+            vertices.Add(new Vertice(x, y));
         }
 
-        class DoublePictureBox
+        private void pictureBoxPicker_Paint(object sender, PaintEventArgs e)
         {
-            PictureBox visible;
-            PictureBox picker;
-
-            public DoublePictureBox(PictureBox visible, PictureBox picker)
+            foreach (Vertice v in vertices)
             {
-                this.visible = visible;
-                this.picker = picker;
-            }
-
-            void Refresh()
-            {
-                visible.Refresh();
-                picker.Refresh();
+                Rectangle circle = new Rectangle((int)v.X - 2 * pointSize, (int)v.Y - (2 * pointSize), 4 * pointSize, 4 * pointSize);
+                e.Graphics.FillEllipse(new SolidBrush(v.Color), circle);
             }
         }
 
@@ -62,15 +41,40 @@ namespace gk1_lab1
         {
             foreach (Vertice v in vertices)
             {
-                Rectangle circle = new Rectangle((int)v.X - 5, (int)v.Y - 5, 2 * 5, 2 * 5);
-                e.Graphics.FillEllipse(Brushes.White, circle);
-                e.Graphics.DrawEllipse(new Pen(v.Color, 3), circle);
+                Rectangle circle = new Rectangle((int)v.X - pointSize, (int)v.Y - pointSize, 2 * pointSize, 2 * pointSize);
+                if (v.Color == chosenColor)
+                    e.Graphics.FillEllipse(Brushes.Red, circle);
+                else
+                    e.Graphics.FillEllipse(Brushes.Black, circle);
             }
         }
 
         private void pictureBoxVisible_MouseDown(object sender, MouseEventArgs e)
         {
-            addVertice(e.X, e.Y);
+            Color color = doublePictureBox.pickColor(e.X, e.Y);
+            if (color.ToArgb() != pictureBoxPicker.BackColor.ToArgb())
+            {
+                chosenColor = color;
+                doublePictureBox.Refresh();
+            }
+            else
+            {
+                addVertice(e.X, e.Y);
+                doublePictureBox.OnChange();
+            }
+        }
+
+        private void swapBoxBut_Click(object sender, EventArgs e)
+        {
+            if (pictureBoxVisible.Visible)
+                pictureBoxVisible.Hide();
+            else
+                pictureBoxVisible.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

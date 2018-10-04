@@ -14,11 +14,11 @@ namespace gk1_lab1
         Edge before, after;
         Color color;
 
-        public Vertice(float x, float y, Color color)
+        public Vertice(float x, float y)
         {
             X = x;
             Y = y;
-            Color = color;
+            Color = colorGiver.Give();
         }
 
         public float X { get => x; set => x = value; }
