@@ -13,9 +13,12 @@ namespace gk1_lab1
     public partial class MainWindow : Form
     {
         const int pointSize = 5;
+        const int lineWidth = 3;
         List<Vertice> vertices = new List<Vertice>();
-        DoublePictureBox doublePictureBox;
+        List<Edge> edges = new List<Edge>();
+        private DoublePictureBox doublePictureBox;
         Color chosenColor;
+        bool isClosed = false;
 
         public MainWindow()
         {
@@ -25,11 +28,26 @@ namespace gk1_lab1
 
         void addVertice(int x, int y)
         {
-            vertices.Add(new Vertice(x, y));
+            if (!isClosed)
+            {
+                Vertice v = new Vertice(x, y);
+                if (vertices.Count > 0)
+                {
+                    Edge e = new Edge(vertices[vertices.Count - 1], v);
+                    edges.Add(e);
+                    vertices[vertices.Count - 1].After = e;
+                    v.Before = e;
+                }
+                vertices.Add(v);
+            }
         }
 
         private void pictureBoxPicker_Paint(object sender, PaintEventArgs e)
         {
+            foreach (Edge edge in edges)
+            {
+                e.Graphics.DrawLine(new Pen(edge.Color, lineWidth * 2), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
+            }
             foreach (Vertice v in vertices)
             {
                 Rectangle circle = new Rectangle((int)v.X - 2 * pointSize, (int)v.Y - (2 * pointSize), 4 * pointSize, 4 * pointSize);
@@ -39,6 +57,10 @@ namespace gk1_lab1
 
         private void pictureBoxVisible_Paint(object sender, PaintEventArgs e)
         {
+            foreach (Edge edge in edges)
+            {
+                e.Graphics.DrawLine(new Pen(Color.Black, lineWidth), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
+            }
             foreach (Vertice v in vertices)
             {
                 Rectangle circle = new Rectangle((int)v.X - pointSize, (int)v.Y - pointSize, 2 * pointSize, 2 * pointSize);
@@ -51,16 +73,37 @@ namespace gk1_lab1
 
         private void pictureBoxVisible_MouseDown(object sender, MouseEventArgs e)
         {
-            Color color = doublePictureBox.pickColor(e.X, e.Y);
-            if (color.ToArgb() != pictureBoxPicker.BackColor.ToArgb())
+            if (!isClosed)
             {
-                chosenColor = color;
-                doublePictureBox.Refresh();
+                Color color = doublePictureBox.pickColor(e.X, e.Y);
+                if (color.ToArgb() == pictureBoxPicker.BackColor.ToArgb())
+                {
+                    addVertice(e.X, e.Y);
+                    doublePictureBox.OnChange();
+                }
+                else if (vertices.Count > 1 && color.ToArgb() == vertices[0].Color.ToArgb())
+                {
+                    Edge edge = new Edge(vertices[vertices.Count - 1], vertices[0]);
+                    edges.Add(edge);
+                    vertices[vertices.Count - 1].After = edge;
+                    vertices[0].Before = edge;
+                    isClosed = true;
+                    doublePictureBox.OnChange();
+                }
             }
             else
             {
-                addVertice(e.X, e.Y);
-                doublePictureBox.OnChange();
+                //Color color = doublePictureBox.pickColor(e.X, e.Y);
+                //if (color.ToArgb() != pictureBoxPicker.BackColor.ToArgb())
+                //{
+                //    chosenColor = color;
+                //    doublePictureBox.Refresh();
+                //}
+                //else
+                //{
+                //    addVertice(e.X, e.Y);
+                //    doublePictureBox.OnChange();
+                //}
             }
         }
 
@@ -75,6 +118,15 @@ namespace gk1_lab1
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void clearBut_Click(object sender, EventArgs e)
+        {
+            vertices = new List<Vertice>();
+            edges = new List<Edge>();
+            colorGiver.Reset();
+            isClosed = false;
+            doublePictureBox.OnChange();
         }
     }
 }

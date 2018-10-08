@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.exampleBut = new System.Windows.Forms.Button();
             this.drawingPanel = new System.Windows.Forms.Panel();
             this.pictureBoxVisible = new System.Windows.Forms.PictureBox();
             this.pictureBoxPicker = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.swapBoxBut = new System.Windows.Forms.Button();
+            this.exampleBut = new System.Windows.Forms.Button();
+            this.clearBut = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.drawingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).BeginInit();
@@ -57,16 +58,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(984, 716);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // exampleBut
-            // 
-            this.exampleBut.Location = new System.Drawing.Point(3, 3);
-            this.exampleBut.Name = "exampleBut";
-            this.exampleBut.Size = new System.Drawing.Size(138, 59);
-            this.exampleBut.TabIndex = 0;
-            this.exampleBut.Text = "Example polyghon";
-            this.exampleBut.UseVisualStyleBackColor = true;
-            this.exampleBut.Click += new System.EventHandler(this.button1_Click);
             // 
             // drawingPanel
             // 
@@ -103,6 +94,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.clearBut);
             this.panel1.Controls.Add(this.swapBoxBut);
             this.panel1.Controls.Add(this.exampleBut);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -120,6 +112,27 @@
             this.swapBoxBut.Text = "Swap Picture Boxex";
             this.swapBoxBut.UseVisualStyleBackColor = true;
             this.swapBoxBut.Click += new System.EventHandler(this.swapBoxBut_Click);
+            // 
+            // exampleBut
+            // 
+            this.exampleBut.Location = new System.Drawing.Point(3, 3);
+            this.exampleBut.Name = "exampleBut";
+            this.exampleBut.Size = new System.Drawing.Size(138, 59);
+            this.exampleBut.TabIndex = 0;
+            this.exampleBut.Text = "Example polyghon";
+            this.exampleBut.UseVisualStyleBackColor = true;
+            this.exampleBut.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // clearBut
+            // 
+            this.clearBut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.clearBut.Location = new System.Drawing.Point(22, 134);
+            this.clearBut.Name = "clearBut";
+            this.clearBut.Size = new System.Drawing.Size(103, 55);
+            this.clearBut.TabIndex = 2;
+            this.clearBut.Text = "Clear";
+            this.clearBut.UseVisualStyleBackColor = true;
+            this.clearBut.Click += new System.EventHandler(this.clearBut_Click);
             // 
             // MainWindow
             // 
@@ -149,6 +162,7 @@
         private System.Windows.Forms.PictureBox pictureBoxPicker;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button swapBoxBut;
+        private System.Windows.Forms.Button clearBut;
     }
 }
 
