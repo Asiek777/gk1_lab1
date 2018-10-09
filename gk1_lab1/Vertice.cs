@@ -8,13 +8,13 @@ using System.Drawing;
 
 namespace gk1_lab1
 {
-    class Vertice
+    class Vertex : IPickable
     {
         float x, y;
         Edge before, after;
         Color color;
 
-        public Vertice(float x, float y)
+        public Vertex(float x, float y)
         {
             X = x;
             Y = y;
@@ -25,6 +25,11 @@ namespace gk1_lab1
         public float Y { get => y; set => y = value; }
         public Color Color { get => color; set => color = value; }
         internal Edge Before { get => before; set => before = value; }
-        internal Edge After { get => after; set => after = value; }  
+        internal Edge After { get => after; set => after = value; }
+
+        public bool isVertex()
+        {
+            return true;
+        }
     }
 }

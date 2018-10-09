@@ -14,7 +14,7 @@ namespace gk1_lab1
         {
             Color color = Color.FromArgb(nextToGive >> 16, 
                 (nextToGive >> 8) & 0xff, nextToGive & 0xff);
-            nextToGive += 10; //TODO: switch to 1
+            nextToGive += 1000; //TODO: switch to 1
             return color;
         }
         public static void Reset() => 

@@ -33,9 +33,9 @@
             this.pictureBoxVisible = new System.Windows.Forms.PictureBox();
             this.pictureBoxPicker = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.clearBut = new System.Windows.Forms.Button();
             this.swapBoxBut = new System.Windows.Forms.Button();
             this.exampleBut = new System.Windows.Forms.Button();
-            this.clearBut = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.drawingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).BeginInit();
@@ -80,6 +80,7 @@
             this.pictureBoxVisible.TabStop = false;
             this.pictureBoxVisible.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxVisible_Paint);
             this.pictureBoxVisible.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxVisible_MouseDown);
+            this.pictureBoxVisible.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxVisible_MouseUp);
             // 
             // pictureBoxPicker
             // 
@@ -103,6 +104,17 @@
             this.panel1.Size = new System.Drawing.Size(144, 710);
             this.panel1.TabIndex = 3;
             // 
+            // clearBut
+            // 
+            this.clearBut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.clearBut.Location = new System.Drawing.Point(22, 134);
+            this.clearBut.Name = "clearBut";
+            this.clearBut.Size = new System.Drawing.Size(103, 55);
+            this.clearBut.TabIndex = 2;
+            this.clearBut.Text = "Clear";
+            this.clearBut.UseVisualStyleBackColor = true;
+            this.clearBut.Click += new System.EventHandler(this.clearBut_Click);
+            // 
             // swapBoxBut
             // 
             this.swapBoxBut.Location = new System.Drawing.Point(30, 68);
@@ -122,17 +134,6 @@
             this.exampleBut.Text = "Example polyghon";
             this.exampleBut.UseVisualStyleBackColor = true;
             this.exampleBut.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // clearBut
-            // 
-            this.clearBut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.clearBut.Location = new System.Drawing.Point(22, 134);
-            this.clearBut.Name = "clearBut";
-            this.clearBut.Size = new System.Drawing.Size(103, 55);
-            this.clearBut.TabIndex = 2;
-            this.clearBut.Text = "Clear";
-            this.clearBut.UseVisualStyleBackColor = true;
-            this.clearBut.Click += new System.EventHandler(this.clearBut_Click);
             // 
             // MainWindow
             // 
