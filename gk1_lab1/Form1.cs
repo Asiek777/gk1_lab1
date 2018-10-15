@@ -14,55 +14,49 @@ namespace gk1_lab1
     {
         const int pointSize = 5;
         const int lineWidth = 3;
-
-        List<Vertex> Vertices = new List<Vertex>();
-        List<Edge> edges = new List<Edge>();
-        Dictionary<int, IPickable> finder = new Dictionary<int, IPickable>();
+        ProgramState s;
         private DoublePictureBox myPictureBox;
 
-        Color chosenColor;
-        IPickable chosenPrimitive;
-        bool isClosed = false;
-        int posX, posY;
         
 
         public MainWindow()
         {
             InitializeComponent();
             myPictureBox = new DoublePictureBox(pictureBoxVisible, pictureBoxPicker);
+            s = new ProgramState(myPictureBox);
         }
 
         void addVertex(int x, int y)
         {
-            if (!isClosed)
+            if (!s.IsClosed)
             {
                 Vertex v = new Vertex(x, y);
-                if (Vertices.Count > 0)
+                if (s.Vertices.Count > 0)
                 {
-                    Edge e = AddEdge(Vertices[Vertices.Count - 1], v);
-                    Vertices[Vertices.Count - 1].After = e;
+                    Edge e = AddEdge(s.Vertices[s.Vertices.Count - 1], v);
+                    s.Vertices[s.Vertices.Count - 1].After = e;
                     v.Before = e;
                 }
-                Vertices.Add(v);
-                finder.Add(v.Color.ToArgb(), v);
+                s.Vertices.Add(v);
+                s.Finder.Add(v.Color.ToArgb(), v);
             }
         }
 
         private Edge AddEdge(Vertex v1, Vertex v2)
         {
             Edge e = new Edge(v1, v2);
-            edges.Add(e);
-            finder.Add(e.Color.ToArgb(), e);
+            s.Edges.Add(e);
+            s.Finder.Add(e.Color.ToArgb(), e);
             return e;
         }
 
         private void pictureBoxPicker_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Edge edge in edges)
+            foreach (Edge edge in s.Edges)
             {
                 e.Graphics.DrawLine(new Pen(edge.Color, lineWidth * 2), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
             }
-            foreach (Vertex v in Vertices)
+            foreach (Vertex v in s.Vertices)
             {
                 Rectangle circle = new Rectangle((int)v.X - 2 * pointSize, (int)v.Y - (2 * pointSize), 4 * pointSize, 4 * pointSize);
                 e.Graphics.FillEllipse(new SolidBrush(v.Color), circle);
@@ -71,14 +65,14 @@ namespace gk1_lab1
 
         private void pictureBoxVisible_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Edge edge in edges)
+            foreach (Edge edge in s.Edges)
             {
                 e.Graphics.DrawLine(new Pen(Color.Black, lineWidth), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
             }
-            foreach (Vertex v in Vertices)
+            foreach (Vertex v in s.Vertices)
             {
                 Rectangle circle = new Rectangle((int)v.X - pointSize, (int)v.Y - pointSize, 2 * pointSize, 2 * pointSize);
-                if (v.Color == chosenColor)
+                if (v.Color == s.ChosenColor)
                     e.Graphics.FillEllipse(Brushes.Red, circle);
                 else
                     e.Graphics.FillEllipse(Brushes.Black, circle);
@@ -87,7 +81,7 @@ namespace gk1_lab1
 
         private void pictureBoxVisible_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!isClosed)
+            if (!s.IsClosed)
             {
                 Color color = myPictureBox.pickColor(e.X, e.Y);
                 if (color.ToArgb() == pictureBoxPicker.BackColor.ToArgb())
@@ -95,12 +89,12 @@ namespace gk1_lab1
                     addVertex(e.X, e.Y);
                     myPictureBox.OnChange();
                 }
-                else if (Vertices.Count > 1 && color.ToArgb() == Vertices[0].Color.ToArgb())
+                else if (s.Vertices.Count > 1 && color.ToArgb() == s.Vertices[0].Color.ToArgb())
                 {
-                    Edge edge = AddEdge(Vertices[Vertices.Count - 1], Vertices[0]);
-                    Vertices[Vertices.Count - 1].After = edge;
-                    Vertices[0].Before = edge;
-                    isClosed = true;
+                    Edge edge = AddEdge(s.Vertices[s.Vertices.Count - 1], s.Vertices[0]);
+                    s.Vertices[s.Vertices.Count - 1].After = edge;
+                    s.Vertices[0].Before = edge;
+                    s.IsClosed = true;
                     myPictureBox.OnChange();
                 }
             }
@@ -109,13 +103,13 @@ namespace gk1_lab1
                 Color color = myPictureBox.pickColor(e.X, e.Y);
                 if (color.ToArgb() != pictureBoxPicker.BackColor.ToArgb())
                 {
-                    chosenColor = color;
-                    chosenPrimitive = finder[chosenColor.ToArgb()];
-                    if (chosenPrimitive.isVertex())
-                    {
+                    s.ChosenColor = color;
+                    s.ChosenPrimitive = s.Finder[s.ChosenColor.ToArgb()];
+                    if (s.ChosenPrimitive.isVertex())
+                    {                        
+                        s.PosX = e.X;
+                        s.PosY = e.Y;
                         pictureBoxVisible.MouseMove += moveVertex;
-                        posX = e.X;
-                        posY = e.Y;
                     }
                     myPictureBox.Refresh();
                 }
@@ -124,12 +118,16 @@ namespace gk1_lab1
 
         private void moveVertex(object sender, MouseEventArgs e)
         {
-            Vertex v = (Vertex)chosenPrimitive;
-            v.X += e.X - posX;
-            v.Y += e.Y - posY;
-            posX = e.X;
-            posY = e.Y;
+            Vertex v = (Vertex)s.ChosenPrimitive;
+            v.X += e.X - s.PosX;
+            v.Y += e.Y - s.PosY;
+            s.PosX = e.X;
+            s.PosY = e.Y;
             myPictureBox.Refresh();
+        }
+
+        private void highlightPrimitive(object sender, MouseEventArgs e)
+        {
         }
 
         private void swapBoxBut_Click(object sender, EventArgs e)
@@ -147,11 +145,11 @@ namespace gk1_lab1
 
         private void clearBut_Click(object sender, EventArgs e)
         {
-            Vertices = new List<Vertex>();
-            edges = new List<Edge>();
-            finder = new Dictionary<int, IPickable>();
+            s.Vertices = new List<Vertex>();
+            s.Edges = new List<Edge>();
+            s.Finder = new Dictionary<int, IPickable>();
             colorGiver.Reset();
-            isClosed = false;
+            s.IsClosed = false;
             myPictureBox.OnChange();
         }
 
