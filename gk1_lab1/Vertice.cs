@@ -21,15 +21,20 @@ namespace gk1_lab1
             Color = colorGiver.Give();
         }
 
+        public Vertex(float x, float y, Edge before, Edge after) : this(x, y)
+        {
+            Before = before;
+            After = after;
+        }
+
         public float X { get => x; set => x = value; }
         public float Y { get => y; set => y = value; }
         public Color Color { get => color; set => color = value; }
         internal Edge Before { get => before; set => before = value; }
         internal Edge After { get => after; set => after = value; }
 
-        public bool isVertex()
-        {
-            return true;
-        }
+        //public Color Color => color;
+
+        public bool isVertex() => true;
     }
 }

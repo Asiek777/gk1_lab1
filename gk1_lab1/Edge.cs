@@ -29,5 +29,7 @@ namespace gk1_lab1
         public Effect State { get => state; set => state = value; }
 
         public bool isVertex() => false;
+
+        //public Color Color => color;
     }
 }

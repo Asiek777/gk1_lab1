@@ -17,15 +17,14 @@ namespace gk1_lab1
         Dictionary<int, IPickable> finder = new Dictionary<int, IPickable>();
         DoublePictureBox myPictureBox;
 
+
+        Vertex lastVertex, firstVertex;
         Color chosenColor;
         IPickable chosenPrimitive;
         bool isClosed = false;
         int posX, posY;
 
-        public ProgramState(DoublePictureBox myPictureBox)
-        {
-            MyPictureBox = myPictureBox;
-        }
+
 
         public Color ChosenColor { get => chosenColor; set => chosenColor = value; }
         public bool IsClosed { get => isClosed; set => isClosed = value; }
@@ -36,5 +35,7 @@ namespace gk1_lab1
         internal Dictionary<int, IPickable> Finder { get => finder; set => finder = value; }
         internal IPickable ChosenPrimitive { get => chosenPrimitive; set => chosenPrimitive = value; }
         internal DoublePictureBox MyPictureBox { get => myPictureBox; set => myPictureBox = value; }
+        internal Vertex LastVertex { get => lastVertex; set => lastVertex = value; }
+        internal Vertex FirstVertex { get => firstVertex; set => firstVertex = value; }
     }
 }
