@@ -28,15 +28,16 @@ namespace gk1_lab1
 
         public void OnChange()
         {
+            Refresh();
+            picker.Refresh();
             bitmapToPick = new Bitmap(picker.Width, picker.Height);
             picker.DrawToBitmap(bitmapToPick, picker.ClientRectangle);
-            Refresh();
+           
         }
 
         public void Refresh()
         {
             visible.Refresh();
-            picker.Refresh();
         }
     }
 }

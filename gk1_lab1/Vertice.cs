@@ -10,25 +10,25 @@ namespace gk1_lab1
 {
     class Vertex : IPickable
     {
-        float x, y;
+        int x, y;
         Edge before, after;
         Color color;
 
-        public Vertex(float x, float y)
+        public Vertex(int x, int y)
         {
             X = x;
             Y = y;
             Color = colorGiver.Give();
         }
 
-        public Vertex(float x, float y, Edge before, Edge after) : this(x, y)
+        public Vertex(int x, int y, Edge before, Edge after) : this(x, y)
         {
             Before = before;
             After = after;
         }
 
-        public float X { get => x; set => x = value; }
-        public float Y { get => y; set => y = value; }
+        public int X { get => x; set => x = value; }
+        public int Y { get => y; set => y = value; }
         public Color Color { get => color; set => color = value; }
         internal Edge Before { get => before; set => before = value; }
         internal Edge After { get => after; set => after = value; }
