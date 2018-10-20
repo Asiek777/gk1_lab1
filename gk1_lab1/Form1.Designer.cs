@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.drawingPanel = new System.Windows.Forms.Panel();
             this.pictureBoxVisible = new System.Windows.Forms.PictureBox();
@@ -36,11 +37,18 @@
             this.clearBut = new System.Windows.Forms.Button();
             this.swapBoxBut = new System.Windows.Forms.Button();
             this.exampleBut = new System.Windows.Forms.Button();
+            this.changeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteVertexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.constLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1.SuspendLayout();
             this.drawingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPicker)).BeginInit();
             this.panel1.SuspendLayout();
+            this.changeContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -135,6 +143,55 @@
             this.exampleBut.UseVisualStyleBackColor = true;
             this.exampleBut.Click += new System.EventHandler(this.button1_Click);
             // 
+            // changeContextMenu
+            // 
+            this.changeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteVertexToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.horizontalToolStripMenuItem,
+            this.verticalToolStripMenuItem,
+            this.constLengthToolStripMenuItem});
+            this.changeContextMenu.Name = "changeContextMenu";
+            this.changeContextMenu.Size = new System.Drawing.Size(181, 120);
+            // 
+            // deleteVertexToolStripMenuItem
+            // 
+            this.deleteVertexToolStripMenuItem.Enabled = false;
+            this.deleteVertexToolStripMenuItem.Name = "deleteVertexToolStripMenuItem";
+            this.deleteVertexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteVertexToolStripMenuItem.Text = "Delete";
+            this.deleteVertexToolStripMenuItem.Click += new System.EventHandler(this.deleteVertexToolStripMenuItem_Click);
+            // 
+            // horizontalToolStripMenuItem
+            // 
+            this.horizontalToolStripMenuItem.CheckOnClick = true;
+            this.horizontalToolStripMenuItem.Enabled = false;
+            this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.horizontalToolStripMenuItem.Text = "Horizontal";
+            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
+            // 
+            // verticalToolStripMenuItem
+            // 
+            this.verticalToolStripMenuItem.Enabled = false;
+            this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verticalToolStripMenuItem.Text = "Vertical";
+            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
+            // 
+            // constLengthToolStripMenuItem
+            // 
+            this.constLengthToolStripMenuItem.Enabled = false;
+            this.constLengthToolStripMenuItem.Name = "constLengthToolStripMenuItem";
+            this.constLengthToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.constLengthToolStripMenuItem.Text = "Const length";
+            this.constLengthToolStripMenuItem.Click += new System.EventHandler(this.constLengthToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +207,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPicker)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.changeContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -164,6 +222,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button swapBoxBut;
         private System.Windows.Forms.Button clearBut;
+        private System.Windows.Forms.ContextMenuStrip changeContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem deleteVertexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem horizontalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem constLengthToolStripMenuItem;
     }
 }
 
