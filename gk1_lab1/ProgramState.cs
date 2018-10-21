@@ -16,6 +16,8 @@ namespace gk1_lab1
         List<Edge> edges = new List<Edge>();
         Dictionary<int, IPickable> finder = new Dictionary<int, IPickable>();
         DoublePictureBox myPictureBox;
+        Edge[] afterDirEdges, beforeDirEdges;
+        Vertex[] afterDirVertices, beforeDirVertices;
 
 
         Vertex lastVertex, firstVertex, showcaseVertex;
@@ -41,5 +43,9 @@ namespace gk1_lab1
         internal Vertex FirstVertex { get => firstVertex; set => firstVertex = value; }
         internal Edge ShowcaseEdge { get => showcaseEdge; set => showcaseEdge = value; }
         internal Vertex ShowcaseVertex { get => showcaseVertex; set => showcaseVertex = value; }
+        internal Edge[] AfterDirEdges { get => afterDirEdges; set => afterDirEdges = value; }
+        internal Edge[] BeforeDirEdges { get => beforeDirEdges; set => beforeDirEdges = value; }
+        internal Vertex[] AfterDirVertices { get => afterDirVertices; set => afterDirVertices = value; }
+        internal Vertex[] BeforeDirVertices { get => beforeDirVertices; set => beforeDirVertices = value; }
     }
 }

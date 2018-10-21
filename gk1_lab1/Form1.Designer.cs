@@ -39,10 +39,10 @@
             this.exampleBut = new System.Windows.Forms.Button();
             this.changeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteVertexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.constLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1.SuspendLayout();
             this.drawingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVisible)).BeginInit();
@@ -153,6 +153,7 @@
             this.constLengthToolStripMenuItem});
             this.changeContextMenu.Name = "changeContextMenu";
             this.changeContextMenu.Size = new System.Drawing.Size(181, 120);
+            this.changeContextMenu.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.changeContextMenu_Closed);
             // 
             // deleteVertexToolStripMenuItem
             // 
@@ -162,9 +163,13 @@
             this.deleteVertexToolStripMenuItem.Text = "Delete";
             this.deleteVertexToolStripMenuItem.Click += new System.EventHandler(this.deleteVertexToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // horizontalToolStripMenuItem
             // 
-            this.horizontalToolStripMenuItem.CheckOnClick = true;
             this.horizontalToolStripMenuItem.Enabled = false;
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
             this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -186,11 +191,6 @@
             this.constLengthToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.constLengthToolStripMenuItem.Text = "Const length";
             this.constLengthToolStripMenuItem.Click += new System.EventHandler(this.constLengthToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // MainWindow
             // 

@@ -18,7 +18,6 @@ namespace gk1_lab1
         private DoublePictureBox myPictureBox;
 
         
-
         public MainWindow()
         {
             InitializeComponent();
@@ -86,6 +85,8 @@ namespace gk1_lab1
                 e.Graphics.DrawLine(new Pen(Color.Red, lineWidth), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
             else
                 e.Graphics.DrawLine(new Pen(Color.Black, lineWidth), edge.V1.X, edge.V1.Y, edge.V2.X, edge.V2.Y);
+            string symbol = edge.getEffectSymbol();
+            e.Graphics.DrawString(symbol, SystemFonts.MessageBoxFont, Brushes.Black, (edge.V1.X + edge.V2.X) / 2 + 5, (edge.V1.Y + edge.V2.Y) / 2 - 15);
         }
 
         private void drawVertexVisible(PaintEventArgs e, Vertex v)
@@ -128,11 +129,15 @@ namespace gk1_lab1
                         if (s.ChosenPrimitive.isVertex())
                         {
                             pictureBoxVisible.MouseMove -= highlightPrimitive;
+                            (s.BeforeDirEdges, s.BeforeDirVertices) = ((Vertex)s.ChosenPrimitive).beforeDirection();
+                            (s.AfterDirEdges, s.AfterDirVertices) = ((Vertex)s.ChosenPrimitive).afterDirection();
                             pictureBoxVisible.MouseMove += moveVertex;
                         }
                         else
                         {
                             pictureBoxVisible.MouseMove -= highlightPrimitive;
+                            (s.BeforeDirEdges, s.BeforeDirVertices) = ((Edge)s.ChosenPrimitive).V1.beforeDirection();
+                            (s.AfterDirEdges, s.AfterDirVertices) = ((Edge)s.ChosenPrimitive).V2.afterDirection();
                             pictureBoxVisible.MouseMove += moveEdge;
                         }
 
@@ -154,14 +159,27 @@ namespace gk1_lab1
                 if (color.ToArgb() != pictureBoxPicker.BackColor.ToArgb())
                 {
                     s.ChosenPrimitive = s.Finder[color.ToArgb()];
-                    if (s.ChosenPrimitive.isVertex())
-                    {
-                        deleteVertexToolStripMenuItem.Enabled = true;
-                    }
-                    else
-                        foreach (ToolStripItem toolStrip in changeContextMenu.Items)
-                            toolStrip.Enabled = true;
+                    prepareContextMenu();
                 }
+            }
+        }
+
+        private void prepareContextMenu()
+        {
+            if (s.ChosenPrimitive.isVertex())
+            {
+                deleteVertexToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                Edge edge = (Edge)s.ChosenPrimitive;
+                foreach (ToolStripItem toolStrip in changeContextMenu.Items)
+                    toolStrip.Enabled = true;
+                deleteVertexToolStripMenuItem.Enabled = false;
+                if (edge.V1.Before.State == Edge.Effect.vertical || edge.V2.After.State == Edge.Effect.vertical)
+                    verticalToolStripMenuItem.Enabled = false;
+                if (edge.V1.Before.State == Edge.Effect.horizontal || edge.V2.After.State == Edge.Effect.horizontal)
+                    horizontalToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -172,6 +190,12 @@ namespace gk1_lab1
             v.Y += e.Y - s.PosY;
             s.PosX = e.X;
             s.PosY = e.Y;
+            if (v.After != null)
+            {
+                adjustPosition(s.BeforeDirEdges, s.BeforeDirVertices, v);
+                adjustPosition(s.AfterDirEdges, s.AfterDirVertices, v);
+            }
+
             myPictureBox.Refresh();
         }
 
@@ -187,6 +211,20 @@ namespace gk1_lab1
             myPictureBox.Refresh();
         }
 
+        private void adjustPosition(Edge[] edges, Vertex[] vertices, Vertex v)
+        {
+            switch (edges[0].State)
+            {
+                case Edge.Effect.vertical:
+                    if (edges[1].State != Edge.Effect.length)
+                        vertices[0].X = v.X;
+                    break;
+                case Edge.Effect.horizontal:
+                    if (edges[1].State != Edge.Effect.length)
+                        vertices[0].Y = v.Y;
+                    break;
+            }
+        }
 
         private void highlightPrimitive(object sender, MouseEventArgs e)
         {
@@ -213,13 +251,9 @@ namespace gk1_lab1
 
         private void clearBut_Click(object sender, EventArgs e)
         {
-            s.Vertices = new List<Vertex>();
-            s.Edges = new List<Edge>();
-            s.Finder = new Dictionary<int, IPickable>();
+            s = new ProgramState();
             colorGiver.Reset();
-            s.IsClosed = false;
-            s.FirstVertex = null;
-            s.LastVertex = null;
+            s.MyPictureBox = myPictureBox;
             pictureBoxVisible.MouseMove -= highlightPrimitive;
             myPictureBox.OnChange();
 
@@ -257,7 +291,7 @@ namespace gk1_lab1
             AddEdge(v.Before.V1, v.After.V2);
             s.Edges.Remove(v.After);
             s.Edges.Remove(v.Before);
-            deleteVertexToolStripMenuItem.Enabled = false;
+            //deleteVertexToolStripMenuItem.Enabled = false;
             myPictureBox.OnChange();
         }
 
@@ -267,17 +301,23 @@ namespace gk1_lab1
                 e.State = effect;
             else
                 e.State = Edge.Effect.none;
-            foreach (ToolStripItem toolStrip in changeContextMenu.Items)
-                toolStrip.Enabled = false;
+            (s.AfterDirEdges, s.AfterDirVertices) = e.V1.afterDirection();
+            adjustPosition(s.AfterDirEdges, s.AfterDirVertices, e.V1);
         }
 
         private void horizontalToolStripMenuItem_Click(object sender, EventArgs e) => 
-            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.pion);
+            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.horizontal);
 
         private void verticalToolStripMenuItem_Click(object sender, EventArgs e) => 
-            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.poziom);
+            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.vertical);
 
         private void constLengthToolStripMenuItem_Click(object sender, EventArgs e) => 
-            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.poziom);
+            switchEdgeState((Edge)s.ChosenPrimitive, Edge.Effect.length);
+
+        private void changeContextMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            foreach (ToolStripItem toolStrip in changeContextMenu.Items)
+                toolStrip.Enabled = false;
+        }
     }
 }

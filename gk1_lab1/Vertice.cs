@@ -27,6 +27,34 @@ namespace gk1_lab1
             After = after;
         }
 
+        public (Edge[], Vertex[]) beforeDirection()
+        {
+            Vertex v = Before.V1;
+            List<Vertex> vertices = new List<Vertex>();
+            List<Edge> edges = new List<Edge>();
+            while (v != this)
+            {
+                edges.Add(v.After);
+                vertices.Add(v);
+                v = v.Before.V1;
+            }
+            return (edges.ToArray(), vertices.ToArray());
+        }
+
+        public (Edge[], Vertex[]) afterDirection()
+        {
+            Vertex v = After.V2;
+            List<Vertex> vertices = new List<Vertex>();
+            List<Edge> edges = new List<Edge>();
+            while (v != this)
+            {
+                edges.Add(v.Before);
+                vertices.Add(v);
+                v = v.After.V2;
+            }
+            return (edges.ToArray(), vertices.ToArray());
+        }
+
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
         public Color Color { get => color; set => color = value; }
