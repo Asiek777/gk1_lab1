@@ -55,6 +55,9 @@ namespace gk1_lab1
             return (edges.ToArray(), vertices.ToArray());
         }
 
+        public static double calcDistance(Vertex v1, Vertex v2)
+            => Math.Sqrt((double)((v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y)));
+
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
         public Color Color { get => color; set => color = value; }

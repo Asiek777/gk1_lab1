@@ -141,7 +141,7 @@
             this.exampleBut.TabIndex = 0;
             this.exampleBut.Text = "Example polyghon";
             this.exampleBut.UseVisualStyleBackColor = true;
-            this.exampleBut.Click += new System.EventHandler(this.button1_Click);
+            this.exampleBut.Click += new System.EventHandler(this.exmpleBut_Click);
             // 
             // changeContextMenu
             // 

@@ -13,7 +13,9 @@ namespace gk1_lab1
     {
         PictureBox visible;
         PictureBox picker;
-        Bitmap bitmapToPick;
+        Bitmap bitmapToPick, drawBitmap;
+
+        public Bitmap DrawBitmap { get => drawBitmap; set => drawBitmap = value; }
 
         public Color pickColor(int x, int y) => 
             bitmapToPick.GetPixel(x, y);
